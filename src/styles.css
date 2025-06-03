@@ -1,0 +1,142 @@
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header content */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 0 0 10px 10px;
+}
+
+.location-name-container {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #007bff;
+    user-select: none;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+}
+
+#search-location-weather {
+    display: flex;
+}
+
+.location-searchbar {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    width: 220px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-searchbar:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
+    outline: none;
+}
+
+/* Main content */
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+}
+
+.today-weather,
+.tomorrow-weather {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgb(0 0 0 / 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    flex: 1 1 300px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.today-weather .weather-icon-container,
+.tomorrow-weather .weather-icon-container {
+    width: 120px;
+    height: 120px;
+}
+
+.weather-icon-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.more-days {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+    }
+
+    main {
+        flex-direction: column;
+        gap: 2rem;
+        scroll-behavior: auto;
+    }
+
+    .location-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+        border-radius: 0 0 0 0;
+    }
+
+    .location-name-container {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .location-searchbar {
+        width: 100%;
+    }
+
+    .today-weather,
+    .tomorrow-weather {
+        flex: none;
+        width: 100%;
+    }
+}

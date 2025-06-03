@@ -8,11 +8,28 @@
 </head>
 
 <body>
-    <div data-api-result></div>
-    <div class="search-container">
-        <input type="text" class="search-location">
-        <button class="submit-location">Search</button>
-    </div>
+    <header>
+        <div class="location-name-container">Weather Report</div>
+        <div class="search-container">
+            <form action="#" id="search-location-weather">
+                <input placeholder="Enter location..." class="location-searchbar" type="text" autofocus>
+            </form>
+        </div>
+    </header>
+    <main>
+        <div class="today-weather">
+            <h1>Today</h1>
+            <div class="weather-icon-container" data-icon-day="0"></div>
+        </div>
+        <div class="tomorrow-weather">
+            <h1>Tomorrow</h1>
+            <div class="weather-icon-container" data-icon-day="1"></div>
+        </div>
+    </main>
+    <section class="more-days">
+
+    </section>
+
 
 </body>
 
