@@ -9,6 +9,8 @@ const locationNameContainer = document.querySelector(
 );
 const userSearch = document.querySelector(".location-searchbar");
 const searchForm = document.querySelector("#search-location-weather");
+const tempToggle = document.querySelector("#temp-toggle");
+let currentLocation = "hamilton,nz";
 
 function displayWeekForecast(dailyData) {
     const weeklySection = document.querySelector(".weekly-data");
@@ -88,7 +90,7 @@ function displayFutureWeatherData(temp, condition) {
 }
 
 /**
- *  Updates the icon and location name
+ *  Updates the icons and location name
  * @param {string} location User searched location
  */
 async function showWeather(location) {
@@ -114,9 +116,25 @@ async function showWeather(location) {
 
 // render.js
 function render() {
-    showWeather("hamilton,nz");
+    tempToggle.checked = getTempUnit() === "f";
+    tempToggle.addEventListener("change", () => {
+        const unit = tempToggle.checked ? "f" : "c";
+        setTempUnit(unit);
+        showWeather(currentLocation);
+
+        if (tempToggle.checked) {
+            document.body.style.backgroundImage = "url('https://cdn.pixabay.com/photo/2022/09/20/14/21/us-flag-7468031_960_720.jpg')";
+        }
+        else {
+            document.body.style.backgroundImage = "none"
+        }
+    });
+
+    showWeather(currentLocation);
+
     searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
+        currentLocation = userSearch.value;
         showWeather(userSearch.value);
 
         userSearch.value = "";

@@ -1,31 +1,26 @@
-function toFarenheit(num) {
-    const celsius = num * (9 / 5) + 32;
-    return parseFloat(celsius.toFixed(1))
-}
-
 function toCelsius(num) {
-    const farenheit = (num - 32) * (5 / 9);
-    return parseFloat(farenheit.toFixed(1))
+    const celsius = (num - 32) * (5 / 9);
+    return parseFloat(celsius.toFixed(1));
 }
 
 function formatTemp(temp, unit) {
     if (unit === "c") {
-        return `${toCelsius(temp)}\u00B0C`
+        return `${toCelsius(temp)}\u00B0C`;
     } else if (unit === "f") {
-        return `${toFarenheit(temp)}\u00B0F`
+        return `${temp.toFixed(1)}\u00B0F`;
     }
 }
 
 function getNewDayOffset() {
-    const now = new Date()
-    const currentHour = now.getHours()
+    const now = new Date();
+    const currentHour = now.getHours();
 
     // If this is true, then we are in the next day
     if (currentHour + 5 >= 24) {
-        return 1
+        return 1;
     } else {
-        return 0
+        return 0;
     }
 }
 
-export {formatTemp, getNewDayOffset}
+export { formatTemp, getNewDayOffset };

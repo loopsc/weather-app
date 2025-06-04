@@ -10,4 +10,4 @@ function setTempUnit(unit) {
     localStorage.setItem("tempUnit", tempUnit);
 }
 
-export { getTempUnit, setTempUnit }
+export { getTempUnit, setTempUnit };

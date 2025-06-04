@@ -15,6 +15,10 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* Header content */
@@ -32,7 +36,7 @@ header {
 }
 
 .location-name-container {
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     font-weight: 700;
     color: #007bff;
     user-select: none;
@@ -40,7 +44,16 @@ header {
 
 .search-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+}
+
+.toggle {
+    align-self: flex-end;
+    margin: 0 10px;
+    padding: 5px 15px;
 }
 
 #search-location-weather {
@@ -60,6 +73,57 @@ header {
     border-color: #007bff;
     box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
     outline: none;
+}
+
+/* Slider */
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.toggle {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    margin: 0 10px;
+}
+
+.toggle input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #007bff;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 24px;
+    width: 24px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background-color: rgba(255, 0, 0, 0.664);
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
 }
 
 /* Main content */
@@ -110,10 +174,9 @@ main {
     margin: 0 auto 3rem;
     padding: 0.5rem;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 1rem;
     justify-content: center;
-    /* background-color: #ffffff; */
     background-color: rgba(255, 255, 255, 0.8);
     width: 100%;
     min-height: 16vh;
@@ -128,10 +191,6 @@ main {
     border-radius: 5px;
     box-shadow: 0 2px 12px rgb(0 0 0 / 0.1);
     background-color: #fff;
-}
-
-.day-box:hover {
-    scale: 1.05;
 }
 
 .week-temp-text {
