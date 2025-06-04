@@ -1,5 +1,6 @@
 import { getLocationData } from "./api";
 import { toCelsius, toFarenheit, getNewDayOffset } from "./utils";
+import {addDays, format} from "date-fns"
 
 // HTML Elements
 const locationNameContainer = document.querySelector(
@@ -7,6 +8,38 @@ const locationNameContainer = document.querySelector(
 );
 const userSearch = document.querySelector(".location-searchbar");
 const searchForm = document.querySelector("#search-location-weather");
+
+function displayWeekForecast(dailyData) {
+    const weeklySection = document.querySelector(".weekly-data");
+    weeklySection.innerHTML = "";
+
+    dailyData.forEach((day, index) => {
+        const box = document.createElement("div")
+        box.classList.add("day-box");
+
+        const weekday = document.createElement("p")
+        weekday.classList.add("week-temp-text")
+        if (index == 0) {
+            weekday.textContent = "Tomorrow"
+        }
+        else {
+            const futureDate = addDays(new Date(), index)
+            weekday.textContent = format(futureDate,"dd-MM")
+        }
+        
+        const icon = document.createElement("img")
+        icon.src = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${day.icon}.png`;
+        icon.alt = day.icon;
+
+        const temp = document.createElement('p');
+        temp.classList.add("week-temp-text")
+        temp.textContent = `${toCelsius(day.temp)}\u00B0C`
+
+        box.append(weekday, icon, temp);
+        weeklySection.appendChild(box)
+    })
+
+}
 
 /**
  * Displays the icon image inside the weather container div
@@ -72,6 +105,7 @@ async function showWeather(location) {
             weatherData.futureTemp,
             weatherData.futureCondition
         );
+        displayWeekForecast(weatherData.days.slice(1,8))
 
         console.log(weatherData);
     } catch (err) {

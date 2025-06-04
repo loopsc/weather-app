@@ -23,7 +23,8 @@ async function getLocationData(location, dayOffset = 0) {
         futureTemp: data.days[dayOffset].temp,
         temp: data.currentConditions.temp,
         currentIcon: data.currentConditions.icon,
-        futureIcon: data.days[dayOffset].icon
+        futureIcon: data.days[dayOffset].icon,
+        days: data.days,
     };
 }
 
