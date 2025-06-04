@@ -1,6 +1,7 @@
 import { getLocationData } from "./api";
-import { toCelsius, toFarenheit, getNewDayOffset } from "./utils";
-import {addDays, format} from "date-fns"
+import { formatTemp, getNewDayOffset } from "./utils";
+import { addDays, format } from "date-fns";
+import { getTempUnit, setTempUnit } from "./storage";
 
 // HTML Elements
 const locationNameContainer = document.querySelector(
@@ -14,31 +15,29 @@ function displayWeekForecast(dailyData) {
     weeklySection.innerHTML = "";
 
     dailyData.forEach((day, index) => {
-        const box = document.createElement("div")
+        const box = document.createElement("div");
         box.classList.add("day-box");
 
-        const weekday = document.createElement("p")
-        weekday.classList.add("week-temp-text")
+        const weekday = document.createElement("p");
+        weekday.classList.add("week-temp-text");
         if (index == 0) {
-            weekday.textContent = "Tomorrow"
+            weekday.textContent = "Tomorrow";
+        } else {
+            const futureDate = addDays(new Date(), index + 1);
+            weekday.textContent = format(futureDate, "dd-MM");
         }
-        else {
-            const futureDate = addDays(new Date(), index)
-            weekday.textContent = format(futureDate,"dd-MM")
-        }
-        
-        const icon = document.createElement("img")
+
+        const icon = document.createElement("img");
         icon.src = `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/1st%20Set%20-%20Color/${day.icon}.png`;
         icon.alt = day.icon;
 
-        const temp = document.createElement('p');
-        temp.classList.add("week-temp-text")
-        temp.textContent = `${toCelsius(day.temp)}\u00B0C`
+        const temp = document.createElement("p");
+        temp.classList.add("week-temp-text");
+        temp.textContent = formatTemp(day.temp, getTempUnit());
 
         box.append(weekday, icon, temp);
-        weeklySection.appendChild(box)
-    })
-
+        weeklySection.appendChild(box);
+    });
 }
 
 /**
@@ -76,7 +75,7 @@ function displayWeather(temp, condition, temperatureDiv, conditionDiv) {
     const tempDiv = document.querySelector(temperatureDiv);
     const condDiv = document.querySelector(conditionDiv);
 
-    tempDiv.textContent = `${toCelsius(temp)}\u00B0C`;
+    tempDiv.textContent = formatTemp(temp, getTempUnit());
     condDiv.textContent = condition;
 }
 
@@ -105,7 +104,7 @@ async function showWeather(location) {
             weatherData.futureTemp,
             weatherData.futureCondition
         );
-        displayWeekForecast(weatherData.days.slice(1,8))
+        displayWeekForecast(weatherData.days.slice(1, 8));
 
         console.log(weatherData);
     } catch (err) {
@@ -115,6 +114,7 @@ async function showWeather(location) {
 
 // render.js
 function render() {
+    showWeather("hamilton,nz");
     searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
         showWeather(userSearch.value);

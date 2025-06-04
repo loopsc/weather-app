@@ -8,6 +8,14 @@ function toCelsius(num) {
     return parseFloat(farenheit.toFixed(1))
 }
 
+function formatTemp(temp, unit) {
+    if (unit === "c") {
+        return `${toCelsius(temp)}\u00B0C`
+    } else if (unit === "f") {
+        return `${toFarenheit(temp)}\u00B0F`
+    }
+}
+
 function getNewDayOffset() {
     const now = new Date()
     const currentHour = now.getHours()
@@ -20,4 +28,4 @@ function getNewDayOffset() {
     }
 }
 
-export {toFarenheit, toCelsius, getNewDayOffset}
+export {formatTemp, getNewDayOffset}
