@@ -4,9 +4,10 @@ import { addDays, format } from "date-fns";
 import { getTempUnit, setTempUnit } from "./storage";
 
 // HTML Elements
-const locationNameContainer = document.querySelector(
-    ".location-name-container"
+const locationName = document.querySelector(
+    ".location-name"
 );
+const timezone = document.querySelector(".timezone")
 const userSearch = document.querySelector(".location-searchbar");
 const searchForm = document.querySelector("#search-location-weather");
 const tempToggle = document.querySelector("#temp-toggle");
@@ -98,7 +99,8 @@ async function showWeather(location) {
         const dayOffset = getNewDayOffset();
         const weatherData = await getLocationData(location, dayOffset);
 
-        locationNameContainer.textContent = weatherData.address;
+        locationName.textContent = `${weatherData.address[0].toUpperCase()+ weatherData.address.slice(1)}`;
+        timezone.textContent = weatherData.timezone;
 
         displayWeatherIcons(weatherData.currentIcon, weatherData.futureIcon);
         displayCurrentWeatherData(weatherData.temp, weatherData.condition);
@@ -110,7 +112,7 @@ async function showWeather(location) {
 
         console.log(weatherData);
     } catch (err) {
-        locationNameContainer.textContent = err.message;
+        locationName.textContent = err.message;
     }
 }
 

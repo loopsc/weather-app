@@ -18,6 +18,7 @@ async function getLocationData(location, dayOffset = 0) {
 
     return {
         address: data.resolvedAddress,
+        timezone: data.timezone,
         condition: data.description,
         futureCondition: data.days[dayOffset].description,
         futureTemp: data.days[dayOffset].temp,
